@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import classes from './MainNavigation.module.css';
@@ -13,6 +13,15 @@ const MainNavigation = () => {
   const logoutHandler = () => {
     authCtx.logout();
   }
+
+  useEffect(() => {
+    if (!authCtx.login) {
+      return;
+    }
+    setTimeout(() => {
+      authCtx.logout();
+    }, 5 * 60 * 1000);
+  }, [authCtx]);
 
   return (
     <header className={classes.header}>
